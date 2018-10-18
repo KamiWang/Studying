@@ -1,6 +1,7 @@
+#!/usr/bin/env python
+
 class A:
     vv = 2
-
     def cc(self):
         print(2)
 
