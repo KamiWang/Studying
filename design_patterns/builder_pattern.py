@@ -5,19 +5,23 @@ from abc import ABCMeta, abstractmethod
 
 
 class Mainboard:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class CPU:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class Memory:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class HD:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class PC:
@@ -33,49 +37,58 @@ class PC:
 
 class PCBuilder(metaclass=ABCMeta):
     @abstractmethod
-    def InstallMainboard(self): pass
+    def InstallMainboard(self, PC, computer_parts): pass
 
     @abstractmethod
-    def InstallCPU(self): pass
+    def InstallCPU(self, PC, computer_parts): pass
 
     @abstractmethod
-    def InstallMemory(self): pass
+    def InstallMemory(self, PC, computer_parts): pass
 
     @abstractmethod
-    def InstallHD(self): pass
+    def InstallHD(self, PC, computer_parts): pass
 
 
 class Director:
-    def assign_task(self, builder, PC, computer_parts):
-        builder.PC = PC
-        builder.computer_parts = computer_parts
-        builder.InstallMainboard()
-        builder.InstallCPU()
-        builder.InstallMemory()
-        builder.InstallHD()
+    def assign_task(self, builder: PCBuilder, PC, computer_parts):
+        builder.InstallMainboard(PC, computer_parts)
+        builder.InstallCPU(PC, computer_parts)
+        builder.InstallMemory(PC, computer_parts)
+        builder.InstallHD(PC, computer_parts)
 
 
 class ComputerWorker(PCBuilder):
-    def __init__(self):
-        self.PC = None
-        self.computer_parts = []
+    def InstallMainboard(self, PC, computer_parts):
+        PC.mainboard = computer_parts[0]
 
-    def InstallMainboard(self):
-        self.PC.mainboard = self.computer_parts[0]
+    def InstallCPU(self, PC, computer_parts):
+        PC.CPU = computer_parts[1]
 
-    def InstallCPU(self):
-        self.PC.CPU = self.computer_parts[1]
+    def InstallMemory(self, PC, computer_parts):
+        PC.memory = computer_parts[2]
 
-    def InstallMemory(self):
-        self.PC.memory = self.computer_parts[2]
-
-    def InstallHD(self):
-        self.PC.HD = self.computer_parts[3]
+    def InstallHD(self, PC, computer_parts):
+        PC.HD = computer_parts[3]
 
 
-apple_pc = PC()
-computer_parts = [Mainboard(), CPU(), Memory(), HD()]
-Director().assign_task(ComputerWorker(), apple_pc, computer_parts)
+if "__main__" == __name__:
+    apple_pc = PC()
+    assembled_PC = PC()
 
-if apple_pc.is_complete:
-    print("电脑已经完成")
+    computer_parts1 = [Mainboard("苹果主板"), CPU(
+        "苹果CPU"), Memory("苹果内存"), HD("苹果硬盘")]
+    computer_parts2 = [Mainboard("华硕主板"), CPU(
+        "intelCPU"), Memory("威刚内存"), None]
+
+    Director().assign_task(ComputerWorker(), apple_pc, computer_parts1)
+    Director().assign_task(ComputerWorker(), assembled_PC, computer_parts2)
+
+    if apple_pc.is_complete:
+        print("苹果电脑已完成")
+    else:
+        print("苹果电脑未完成")
+
+    if assembled_PC.is_complete:
+        print("组装电脑已完成")
+    else:
+        print("组装电脑未完成")
