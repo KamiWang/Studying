@@ -59,8 +59,9 @@ class BananaFactory(FruitFactory):
         return BananaJuice()
 
 
-print(AppleFactory.MakeJuice().GetName())
-print(AppleFactory.MakePie().GetName())
+if "__main__" == __name__:
+    print(AppleFactory.MakeJuice().GetName())
+    print(AppleFactory.MakePie().GetName())
 
-print(BananaFactory.MakeJuice().GetName())
-print(BananaFactory.MakePie().GetName())
+    print(BananaFactory.MakeJuice().GetName())
+    print(BananaFactory.MakePie().GetName())

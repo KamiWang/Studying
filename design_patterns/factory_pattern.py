@@ -48,6 +48,7 @@ class OrangeFactory(FruitFactory):
         return Orange()
 
 
-print(AppleFactory.MakeFruit().GetName())
-print(BananaFactory.MakeFruit().GetName())
-print(OrangeFactory.MakeFruit().GetName())
+if "__main__" == __name__:
+    print(AppleFactory.MakeFruit().GetName())
+    print(BananaFactory.MakeFruit().GetName())
+    print(OrangeFactory.MakeFruit().GetName())

@@ -18,3 +18,21 @@ def singleton(cls):
                 _instance = cls(*args, **kwargs)
             return _instance
     return getinstance
+
+
+@singleton
+class _SingletonTest:
+    count = 0
+
+    def __init__(self):
+        _SingletonTest.count += 1
+        print(f"create:{_SingletonTest.count}")
+
+
+if "__main__" == __name__:
+    cs1 = _SingletonTest()
+    cs2 = _SingletonTest()
+    cs3 = _SingletonTest()
+    cs4 = _SingletonTest()
+    cs1.count = 999
+    print(cs4.count)
