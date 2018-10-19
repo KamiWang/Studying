@@ -1,4 +1,4 @@
-git pull
+锘縢it pull
 git add -A
-git commit -m "自动提交"
+git commit -m "鑷姩鎻愪氦"
 git push
