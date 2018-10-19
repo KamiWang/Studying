@@ -35,7 +35,6 @@ class FruitFactory:
             return Orange()
 
 
-
 if "__main__" == __name__:
     print(FruitFactory.CreateClass("苹果").GetName())
     print(FruitFactory.CreateClass("香蕉").GetName())
