@@ -15,7 +15,7 @@ IF(MSVC)
 		ADD_COMPILE_OPTIONS("/std:c++latest")
 	ENDIF()
 ELSE()
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" -std=gnu++1y)
+	ADD_DEFINITIONS(-std=gnu++1y)
 ENDIF()
 
 
