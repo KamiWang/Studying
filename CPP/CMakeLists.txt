@@ -15,10 +15,7 @@ IF(MSVC)
 		ADD_COMPILE_OPTIONS("/std:c++latest")
 	ENDIF()
 ELSE()
-	CHECK_CXX_COMPILER_FLAG("-std=c++17" _cpp_latest_flag_supported)
-	if(_cpp_latest_flag_supported)
-		ADD_DEFINITIONS("-std=c++17")
-	endif()
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" -std=gnu++1y)
 ENDIF()
 
 
