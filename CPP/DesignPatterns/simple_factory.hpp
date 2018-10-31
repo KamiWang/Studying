@@ -1,13 +1,9 @@
-//简单工厂模式
-
 #include <iostream>
 #include <string>
-#include <memory>
 #include <vector>
-#include "fruit.hpp"
+#include "food.hpp"
 
-
-class FruitSimpleFactory
+class SimpleFactory
 {
 public:
 	enum class FruitType
@@ -17,7 +13,7 @@ public:
 		ORANGE
 	};
 
-	static std::shared_ptr<Fruit> NewFruit(FruitType type)
+	static std::shared_ptr<Food> NewFruit(FruitType type)
 	{
 		switch (type)
 		{
@@ -33,14 +29,14 @@ public:
 	}
 };
 
-void TestSimpleFactory()
+void Test()
 {
-	auto apple = FruitSimpleFactory::NewFruit(FruitSimpleFactory::FruitType::APPLE);
-	auto banana = FruitSimpleFactory::NewFruit(FruitSimpleFactory::FruitType::BANANA);
-	auto orange = FruitSimpleFactory::NewFruit(FruitSimpleFactory::FruitType::ORANGE);
+	auto apple = SimpleFactory::NewFruit(SimpleFactory::FruitType::APPLE);
+	auto banana = SimpleFactory::NewFruit(SimpleFactory::FruitType::BANANA);
+	auto orange = SimpleFactory::NewFruit(SimpleFactory::FruitType::ORANGE);
 
-	std::vector<std::shared_ptr<Fruit>> all_fruits{ apple,banana,orange };
+	std::vector<std::shared_ptr<Food>> all_fruits{ apple,banana,orange };
 
 	for (const auto& it : all_fruits)
-		std::cout << it->GetName() << std::endl;
+		if (it) std::cout << it->GetName() << std::endl;
 }

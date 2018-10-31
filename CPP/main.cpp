@@ -1,8 +1,9 @@
-#include "DesignPatterns/header.h"
+#include "DesignPatterns/abstract_factory.hpp"
+
 
 int main()
 {
-	TestSimpleFactory();
+	Test();
 
 	std::cin.get();
 
