@@ -5,14 +5,14 @@
 
 class AbstractFactory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() = 0;
 	virtual std::shared_ptr<Juice> MakeJuice() = 0;
 };
 
 class AppleFactory : public AbstractFactory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Apple>();
@@ -26,7 +26,7 @@ public:
 
 class BananaFactory : public AbstractFactory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Banana>();
@@ -40,7 +40,7 @@ public:
 
 class OrangeFactory : public AbstractFactory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Orange>();
@@ -52,7 +52,6 @@ public:
 	}
 };
 
-
 void Test()
 {
 	AppleFactory apple_factory;
@@ -63,13 +62,15 @@ void Test()
 	all_fruits.emplace_back(apple_factory.MakeFruit());
 	all_fruits.emplace_back(banana_factory.MakeFruit());
 	all_fruits.emplace_back(orange_factory.MakeFruit());
-	for (const auto& it : all_fruits)
-		if (it) std::cout << it->GetName() << std::endl;
+	for (const auto &it : all_fruits)
+		if (it)
+			std::cout << it->GetName() << std::endl;
 
 	std::vector<std::shared_ptr<Juice>> all_juice;
 	all_juice.emplace_back(apple_factory.MakeJuice());
 	all_juice.emplace_back(banana_factory.MakeJuice());
 	all_juice.emplace_back(orange_factory.MakeJuice());
-	for (const auto& it : all_juice)
-		if (it) std::cout << it->GetName() << std::endl;
+	for (const auto &it : all_juice)
+		if (it)
+			std::cout << it->GetName() << std::endl;
 }

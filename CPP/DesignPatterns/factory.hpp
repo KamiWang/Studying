@@ -5,14 +5,14 @@
 
 class Factory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() = 0;
 	virtual ~Factory() = default;
 };
 
 class AppleFactory : Factory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Apple>();
@@ -21,7 +21,7 @@ public:
 
 class BananaFactory : Factory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Banana>();
@@ -30,7 +30,7 @@ public:
 
 class OrangeFactory : Factory
 {
-public:
+  public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Orange>();
@@ -42,12 +42,11 @@ void Test()
 	AppleFactory apple_factory;
 	BananaFactory banana_factory;
 	OrangeFactory orange_factory;
-
 	std::vector<std::shared_ptr<Food>> all_fruits;
 	all_fruits.emplace_back(apple_factory.MakeFruit());
 	all_fruits.emplace_back(banana_factory.MakeFruit());
 	all_fruits.emplace_back(orange_factory.MakeFruit());
-
-	for (const auto& it : all_fruits)
-		if (it) std::cout << it->GetName() << std::endl;
+	for (const auto &it : all_fruits)
+		if (it)
+			std::cout << it->GetName() << std::endl;
 }
