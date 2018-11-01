@@ -1,4 +1,4 @@
-#include "DesignPatterns/abstract_factory.hpp"
+#include "DesignPatterns/singleton.hpp"
 
 int main()
 {
