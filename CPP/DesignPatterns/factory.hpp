@@ -5,14 +5,14 @@
 
 class Factory
 {
-  public:
+public:
 	virtual std::shared_ptr<Food> MakeFruit() = 0;
 	virtual ~Factory() = default;
 };
 
 class AppleFactory : Factory
 {
-  public:
+public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Apple>();
@@ -21,7 +21,7 @@ class AppleFactory : Factory
 
 class BananaFactory : Factory
 {
-  public:
+public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Banana>();
@@ -30,7 +30,7 @@ class BananaFactory : Factory
 
 class OrangeFactory : Factory
 {
-  public:
+public:
 	virtual std::shared_ptr<Food> MakeFruit() override
 	{
 		return std::make_shared<Orange>();

@@ -1,13 +1,13 @@
 class Food
 {
-  public:
+public:
 	virtual std::string GetName() = 0;
 	virtual ~Food() = default;
 };
 
 class Apple : public Food
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "Apple";
@@ -16,7 +16,7 @@ class Apple : public Food
 
 class Banana : public Food
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "Banana";
@@ -25,7 +25,7 @@ class Banana : public Food
 
 class Orange : public Food
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "Orange";
@@ -34,14 +34,14 @@ class Orange : public Food
 
 class Juice
 {
-  public:
+public:
 	virtual std::string GetName() = 0;
 	virtual ~Juice() = default;
 };
 
 class AppleJuice : public Juice
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "AppleJuice";
@@ -50,7 +50,7 @@ class AppleJuice : public Juice
 
 class BananaJuice : public Juice
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "BananaJuice";
@@ -59,7 +59,7 @@ class BananaJuice : public Juice
 
 class OrangeJuice : public Juice
 {
-  public:
+public:
 	virtual std::string GetName() override
 	{
 		return "OrangeJuice";

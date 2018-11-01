@@ -2,7 +2,7 @@
 
 class Singleton
 {
-  public:
+public:
 	static std::shared_ptr<Singleton> Instance()
 	{
 		if (!Singleton::instance)
@@ -15,7 +15,7 @@ class Singleton
 		std::cout << this->count << std::endl;
 	}
 
-  private:
+private:
 	Singleton()
 	{
 		this->count++;
@@ -24,10 +24,10 @@ class Singleton
 	Singleton(const Singleton &) = delete;
 
 	static std::shared_ptr<Singleton> instance;
-	int count{0};
+	int count{ 0 };
 };
 
-std::shared_ptr<Singleton> Singleton::instance{nullptr};
+std::shared_ptr<Singleton> Singleton::instance{ nullptr };
 
 void Test()
 {
