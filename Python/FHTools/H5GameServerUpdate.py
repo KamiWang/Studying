@@ -29,10 +29,10 @@ NEED_REBOOT = False
 
 # 需要上传的服务器
 SERVER_DIR.append("H5_DM_chat_hub/")
-# SERVER_DIR.append("H5_DM_chat/")
-# SERVER_DIR.append("H5_DM_friend/")
-# SERVER_DIR.append("H5_DM_project/")
-# SERVER_DIR.append("H5_DM_rank/")
+SERVER_DIR.append("H5_DM_chat/")
+SERVER_DIR.append("H5_DM_friend/")
+SERVER_DIR.append("H5_DM_project/")
+SERVER_DIR.append("H5_DM_rank/")
 
 
 def get_all_file_path_name(path, excpet):

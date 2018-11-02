@@ -1,4 +1,4 @@
-#include "DesignPatterns/singleton.hpp"
+#include "DesignPatterns/prototype.hpp"
 
 int main()
 {
