@@ -1,6 +1,6 @@
 #include "common_header.h"
 
-class Builder
+class IBuilder
 {
 public:
 	virtual void BuildCPU() = 0;
@@ -10,9 +10,8 @@ public:
 };
 
 
-class PCBuilder : public Builder
+class PCBuilder : public IBuilder
 {
-
 public:
 	virtual void BuildCPU() override
 	{
@@ -47,7 +46,7 @@ private:
 class Director
 {
 public:
-	Director(Builder& builder)
+	Director(IBuilder& builder)
 	{
 		builder.BuildCPU();
 		builder.BuildHD();

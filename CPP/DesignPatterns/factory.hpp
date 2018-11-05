@@ -1,34 +1,34 @@
 #include "common_header.h"
 
-class Factory
+class IFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() = 0;
-	virtual ~Factory() = default;
+	virtual std::shared_ptr<IFood> MakeFruit() = 0;
+	virtual ~IFactory() = default;
 };
 
-class AppleFactory : Factory
+class AppleFactory : IFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Apple>();
 	}
 };
 
-class BananaFactory : Factory
+class BananaFactory : IFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Banana>();
 	}
 };
 
-class OrangeFactory : Factory
+class OrangeFactory : IFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Orange>();
 	}
@@ -39,7 +39,7 @@ void Test()
 	AppleFactory apple_factory;
 	BananaFactory banana_factory;
 	OrangeFactory orange_factory;
-	std::vector<std::shared_ptr<Food>> all_fruits;
+	std::vector<std::shared_ptr<IFood>> all_fruits;
 	all_fruits.emplace_back(apple_factory.MakeFruit());
 	all_fruits.emplace_back(banana_factory.MakeFruit());
 	all_fruits.emplace_back(orange_factory.MakeFruit());

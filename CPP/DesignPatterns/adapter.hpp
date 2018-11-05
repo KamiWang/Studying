@@ -1,6 +1,6 @@
 #include "common_header.h"
 
-class Target
+class ITarget
 {
 public:
 	virtual void Show() = 0;
@@ -23,7 +23,7 @@ private:
 	std::string name;
 };
 
-class Adapter : public Target
+class Adapter : public ITarget
 {
 public:
 	Adapter(std::unique_ptr<Adaptee> ada)
@@ -42,7 +42,7 @@ private:
 
 void Test()
 {
-	std::shared_ptr<Target> target = std::make_shared<Adapter>(std::make_unique<Adaptee>("HelloWorld!!!"));
+	std::shared_ptr<ITarget> target = std::make_shared<Adapter>(std::make_unique<Adaptee>("HelloWorld!!!"));
 
 	target->Show();
 }

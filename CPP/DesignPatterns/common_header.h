@@ -2,14 +2,14 @@
 #include <string>
 #include <vector>
 
-class Food
+class IFood
 {
 public:
 	virtual std::string GetName() = 0;
-	virtual ~Food() = default;
+	virtual ~IFood() = default;
 };
 
-class Apple : public Food
+class Apple : public IFood
 {
 public:
 	virtual std::string GetName() override
@@ -18,7 +18,7 @@ public:
 	}
 };
 
-class Banana : public Food
+class Banana : public IFood
 {
 public:
 	virtual std::string GetName() override
@@ -27,7 +27,7 @@ public:
 	}
 };
 
-class Orange : public Food
+class Orange : public IFood
 {
 public:
 	virtual std::string GetName() override
@@ -36,14 +36,14 @@ public:
 	}
 };
 
-class Juice
+class IJuice
 {
 public:
 	virtual std::string GetName() = 0;
-	virtual ~Juice() = default;
+	virtual ~IJuice() = default;
 };
 
-class AppleJuice : public Juice
+class AppleJuice : public IJuice
 {
 public:
 	virtual std::string GetName() override
@@ -52,7 +52,7 @@ public:
 	}
 };
 
-class BananaJuice : public Juice
+class BananaJuice : public IJuice
 {
 public:
 	virtual std::string GetName() override
@@ -61,7 +61,7 @@ public:
 	}
 };
 
-class OrangeJuice : public Juice
+class OrangeJuice : public IJuice
 {
 public:
 	virtual std::string GetName() override

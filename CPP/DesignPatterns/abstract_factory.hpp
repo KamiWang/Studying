@@ -1,49 +1,49 @@
 #include "common_header.h"
 
-class AbstractFactory
+class IAbstractFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() = 0;
-	virtual std::shared_ptr<Juice> MakeJuice() = 0;
+	virtual std::shared_ptr<IFood> MakeFruit() = 0;
+	virtual std::shared_ptr<IJuice> MakeJuice() = 0;
 };
 
-class AppleFactory : public AbstractFactory
+class AppleFactory : public IAbstractFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Apple>();
 	}
 
-	virtual std::shared_ptr<Juice> MakeJuice() override
+	virtual std::shared_ptr<IJuice> MakeJuice() override
 	{
 		return std::make_shared<AppleJuice>();
 	}
 };
 
-class BananaFactory : public AbstractFactory
+class BananaFactory : public IAbstractFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Banana>();
 	}
 
-	virtual std::shared_ptr<Juice> MakeJuice() override
+	virtual std::shared_ptr<IJuice> MakeJuice() override
 	{
 		return std::make_shared<BananaJuice>();
 	}
 };
 
-class OrangeFactory : public AbstractFactory
+class OrangeFactory : public IAbstractFactory
 {
 public:
-	virtual std::shared_ptr<Food> MakeFruit() override
+	virtual std::shared_ptr<IFood> MakeFruit() override
 	{
 		return std::make_shared<Orange>();
 	}
 
-	virtual std::shared_ptr<Juice> MakeJuice() override
+	virtual std::shared_ptr<IJuice> MakeJuice() override
 	{
 		return std::make_shared<OrangeJuice>();
 	}
@@ -55,7 +55,7 @@ void Test()
 	BananaFactory banana_factory;
 	OrangeFactory orange_factory;
 
-	std::vector<std::shared_ptr<Food>> all_fruits;
+	std::vector<std::shared_ptr<IFood>> all_fruits;
 	all_fruits.emplace_back(apple_factory.MakeFruit());
 	all_fruits.emplace_back(banana_factory.MakeFruit());
 	all_fruits.emplace_back(orange_factory.MakeFruit());
@@ -63,7 +63,7 @@ void Test()
 		if (it)
 			std::cout << it->GetName() << std::endl;
 
-	std::vector<std::shared_ptr<Juice>> all_juice;
+	std::vector<std::shared_ptr<IJuice>> all_juice;
 	all_juice.emplace_back(apple_factory.MakeJuice());
 	all_juice.emplace_back(banana_factory.MakeJuice());
 	all_juice.emplace_back(orange_factory.MakeJuice());

@@ -1,9 +1,9 @@
 #include "common_header.h"
 
-class DecoratorFood : public Food
+class DecoratorFood : public IFood
 {
 public:
-	DecoratorFood(std::unique_ptr<Food> food)
+	DecoratorFood(std::unique_ptr<IFood> food)
 	{
 		this->food = std::move(food);
 	}
@@ -23,7 +23,7 @@ public:
 	virtual void ShowColor() = 0;
 
 protected:
-	std::unique_ptr<Food> food;
+	std::unique_ptr<IFood> food;
 };
 
 class DecoratorApple : public DecoratorFood
