@@ -1,4 +1,4 @@
-#include <iostream>
+#include "common_header.h"
 
 class Singleton
 {

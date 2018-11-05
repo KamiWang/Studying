@@ -1,4 +1,4 @@
-#include "DesignPatterns/prototype.hpp"
+#include "DesignPatterns/builder.hpp"
 
 int main()
 {
@@ -7,3 +7,4 @@ int main()
 	std::cin.get();
 	return 0;
 }
+

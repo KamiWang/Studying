@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+#include "common_header.h"
 
 class Prototype
 {

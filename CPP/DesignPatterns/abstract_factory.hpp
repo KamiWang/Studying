@@ -1,7 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include "food.hpp"
+#include "common_header.h
 
 class AbstractFactory
 {
