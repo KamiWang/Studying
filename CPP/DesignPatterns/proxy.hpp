@@ -17,7 +17,6 @@ protected:
 	std::unique_ptr<IFood> food;
 };
 
-
 class ProxyApple : public IProxy
 {
 public:
@@ -43,7 +42,6 @@ public:
 		std::cout << "byebye" << std::endl;
 	}
 };
-
 
 void Test()
 {

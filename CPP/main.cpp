@@ -1,4 +1,4 @@
-#include "DesignPatterns/proxy.hpp"
+#include "DesignPatterns/facade.hpp"
 
 int main()
 {
@@ -7,5 +7,6 @@ int main()
 	std::cin.get();
 	return 0;
 }
+
 
 
