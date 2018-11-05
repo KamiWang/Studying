@@ -1,4 +1,4 @@
-#include "DesignPatterns/adapter.hpp"
+#include "DesignPatterns/decorator.hpp"
 
 int main()
 {
