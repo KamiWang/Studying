@@ -1,4 +1,4 @@
-#include "DesignPatterns/factory.hpp"
+#include "DesignPatterns/adapter.hpp"
 
 int main()
 {
