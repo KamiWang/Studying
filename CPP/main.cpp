@@ -1,4 +1,4 @@
-#include "DesignPatterns/builder.hpp"
+#include "DesignPatterns/factory.hpp"
 
 int main()
 {

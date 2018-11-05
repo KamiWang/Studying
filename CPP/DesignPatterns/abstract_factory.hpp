@@ -1,4 +1,4 @@
-#include "common_header.h
+#include "common_header.h"
 
 class AbstractFactory
 {
