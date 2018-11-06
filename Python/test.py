@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 
-from poker import dealer
+import sanic
 
-for k in dealer.upstream_dealer():
-    print(k)
+from sanic import Sanic
+from sanic.response import json
+
+app = Sanic()
+
+@app.route("/")
+async def test(request):
+    return json({"hello": "world"})
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=8000)
