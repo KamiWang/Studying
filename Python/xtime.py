@@ -32,8 +32,4 @@ class SimpleTimer:
         return timeit.default_timer() - cls.t0
 
 
-if __name__ == "__main__":
-    @run_duration(call_func=lambda e: print(f"使用了时间{e}秒"))
-    def sleep():
-        time.sleep(1)
-    sleep()
+
