@@ -5,7 +5,6 @@ import timeit
 import time
 
 
-# 运行计时器
 def run_duration(call_func=lambda e: print(e)):
     def warpper1(func):
         @wraps(func)
@@ -19,6 +18,18 @@ def run_duration(call_func=lambda e: print(e)):
             return res
         return warpper2
     return warpper1
+
+
+class SimpleTimer:
+    t0 = t1 = 0
+
+    @classmethod
+    def start(cls):
+        cls.t0 = timeit.default_timer()
+
+    @classmethod
+    def stop(cls):
+        return timeit.default_timer() - cls.t0
 
 
 if __name__ == "__main__":
