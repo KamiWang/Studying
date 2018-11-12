@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 
 
 def path_join(*names):
@@ -55,8 +56,8 @@ class FObject:
         os.rename(self._path, new_path)
         self._path = new_path
 
-    def print_file_tree(self, layers=0):
-        print('|' + '-'*layers + self.name)
+    def print_file_tree(self,  layer=0):
+        print('|' + '-'*layer + self.name)
 
     def refresh(self):
         self.__init__(self._path)
@@ -104,9 +105,9 @@ class Folder(FObject):
             return self._file_list
 
     def print_file_tree(self, layer=0):
-        FObject.print_file_tree(self, layer)
+        FObject.print_file_tree(self, layer=layer)
         for fobj in self._file_list:
-            fobj.print_file_tree(layer+1)
+            fobj.print_file_tree(layer=layer+1)
 
     def __traversal_add_file(self):
         try:

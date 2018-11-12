@@ -8,11 +8,11 @@ async def tcp_echo_client(message):
         print(f'Send: {message!r}')
         writer.write(message.encode())
 
-    input()
-    # data = await reader.read(100)
-    # print(f'Received: {data.decode()!r}')
+    
+    data = await reader.read(100)
+    print(f'Received: {data.decode()!r}')
 
-    # print('Close the connection')
+    print('Close the connection')
     writer.close()
 
 asyncio.run(tcp_echo_client('你好!'))
