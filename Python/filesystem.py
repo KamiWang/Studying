@@ -132,3 +132,8 @@ class File(FObject):
     def read_all(self):
         with open(self._path, "r") as openfile:
             return openfile.read()
+
+
+if __name__ == "__main__":
+    f = File(__file__)
+    print(f.name)

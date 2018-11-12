@@ -4,7 +4,7 @@ import logging
 async def tcp_echo_client(message):
     reader, writer = await asyncio.open_connection('10.10.10.11', 8888)
 
-    for i in range(10):
+    for _ in range(10):
         print(f'Send: {message!r}')
         writer.write(message.encode())
 
