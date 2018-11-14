@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <script>
+        var jobs = [{ name: "间谍", power: 1 }, { name: "媚女郎", power: 1 }, { name: "刺客", power: 2 }, { name: "指挥官", power: 3 },
+        { name: "魔术师", power: 2 }, { name: "先知", power: 1 }, { name: "大主教", power: 3 }, { name: "守护者", power: 2 }, { name: "治愈者", power: 2 },
+        { name: "催眠者", power: 2 }, { name: "敢死队", power: 2 }, { name: "代言人", power: 2 }, { name: "引路人", power: 1 }, { name: "操控师", power: 3 },
+        { name: "祈福者", power: 3 }, { name: "验尸官", power: 1 }, { name: "复仇者", power: 2 }, { name: "执剑人", power: 2 }, { name: "布道者", power: 1 },
+        { name: "颠覆狂", power: 3 }, { name: "数学家", power: 1 }, { name: "通灵师", power: 2 }, { name: "救世主", power: 1 }, { name: "革命家", power: 1 },
+        { name: "神箭手", power: 2 }, { name: "先驱者", power: 1 }, { name: "评论家", power: 1 }, { name: "仲裁者", power: 2 }, { name: "殇逝者", power: 2 },
+        { name: "搏命徒", power: 2 }, { name: "献花女", power: 2 }, { name: "冻结者", power: 2 }, { name: "幻想家", power: 2 }, { name: "屌丝", power: 2 },
+        { name: "女神", power: 2 }, { name: "阴谋家", power: 2 }, { name: "千面人", power: 2 }, { name: "追魂女", power: 2 }, { name: "混血儿", power: 2 },
+        { name: "驯兽师", power: 2 }, { name: "风语者", power: 1 }, { name: "诋毁者", power: 2 }, { name: "化妆师", power: 2 }, { name: "药剂师", power: 2 },
+        { name: "教育家", power: 1 }, { name: "驱魔人", power: 2 }, { name: "催命官", power: 3 }, { name: "探险家", power: 2 }, { name: "架构师", power: 2 },
+        { name: "铸造师", power: 1 }, { name: "阴阳师", power: 3 }, { name: "建功者", power: 3 }, { name: "族长", power: 2 }, { name: "慈善家", power: 2 },
+        { name: "侦探", power: 1 }, { name: "盗墓", power: 2 }];
+
+        var name_list = "";
+        function GetInfo() {
+            for (var i = 0; i < 10; i++) {
+                jobs.sort(function () { return 0.5 - Math.random(); });
+            }
+            var two_jobs = document.getElementById("cb").checked;
+            if (name_list.length <= 0)
+                name_list = document.getElementById("all_text").value.split("\n");
+            var human = document.getElementById("text_human").value;
+            var ghost = document.getElementById("text_ghost").value;
+            var result_str = "";
+            var status_str = "人词:" + human + "\n鬼词:" + ghost + "\n";
+            var jobs_str = "本次出现职业:";
+            var all_jobs = new Array;
+
+            //人数
+            var row_count = 0;
+            for (var i = 0; i < name_list.length; i++)
+                if (name_list[i].length > 0) row_count++;
+
+            var status = new Array;
+            for (var i = 0; i < row_count; i++) {
+                if (i < parseInt(row_count / 2 - 1))
+                    status.push(true);
+                else
+                    status.push(false);
+            }
+            for (var i = 0; i < 10; i++) {
+                status.sort(function () { return 0.5 - Math.random(); });
+            }
+
+            var ratio = 1;
+            if (two_jobs) ratio = 2;
+            for (var i = 0; i < name_list.length; i++) {
+                if (name_list[i].length <= 0)
+                    continue;
+                result_str += name_list[i];
+                var parentage = false;
+                var spy = false;
+                result_str += " " + jobs[i * ratio].name + " ";
+                if (jobs[i * ratio].name == "混血儿") parentage = true;
+                if (jobs[i * ratio].name == "间谍") spy = true;
+                if (two_jobs) {
+                    result_str += jobs[i * ratio + 1].name + " ";
+                    if (jobs[i * ratio + 1].name == "混血儿") parentage = true;
+                    if (jobs[i * ratio + 1].name == "间谍") spy = true;
+                }
+                if (parentage) {
+                    if (0.5 - Math.random() > 0)
+                        result_str += ghost + "/" + human;
+                    else
+                        result_str += human + "/" + ghost;
+                }
+                else {
+                    var flag = status[i];
+                    if (spy)
+                        flag = !flag;
+                    if (flag)
+                        result_str += ghost;
+                    else
+                        result_str += human;
+                }
+                result_str += "\n";
+                all_jobs.push(jobs[i * ratio].name);
+                if (two_jobs) all_jobs.push(jobs[i * ratio + 1].name);
+            }
+            for (var i = 0; i < 10; i++)
+                all_jobs.sort(function () { return 0.5 - Math.random(); });
+            for (var i = 0; i < all_jobs.length; i++)
+                jobs_str += all_jobs[i] + " ";
+            document.getElementById("all_text").value = result_str + "\n" + status_str + "\n" + jobs_str;
+        }
+    </script>
+</head>
+<body>
+    人词:<input type="text" id="text_human" /><br />
+    鬼词:<input type="text" id="text_ghost" /><input type="checkbox" id="cb">双职业<br />
+    <textarea rows="30" cols="40" id="all_text"></textarea><br />
+    <button onclick="GetInfo()">生成</button>
+</body>
+</html>
