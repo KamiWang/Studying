@@ -1,17 +1,34 @@
 #!/usr/bin/env python
 
-from sanic import Sanic
-import sanic.response as res
-import sa_math
+import sanic
 
-server = Sanic(__name__)
+import authorization
+import exception
+import xmath
+
+server = sanic.Sanic(__name__)
 
 
 @server.route("/")
-async def index(request):
-    return res.text("Hello World")
+async def index(req):
+    return sanic.response.text("Hello World")
+
+
+@server.middleware("request")
+async def when_request(req):
+    authorization.check_request_for_authorization_status(req)
+
+
+@server.middleware("response")
+async def when_response(req, res):
+    pass
+
+
+@server.exception(Exception)
+async def when_exception(req, ex):
+    return exception.process_exception(req, ex)
 
 
 if "__main__" == __name__:
-    server.blueprint(sa_math.bp)
-    server.run(host="127.0.0.1", port=80)
+    server.blueprint(xmath.bp)
+    server.run(host="0.0.0.0", port=80, debug=True)
