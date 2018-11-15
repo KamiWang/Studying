@@ -15,7 +15,7 @@ class CommonReply:
         return sanJson.json(self.__dict__)
 
 
-def __fetch_arg(self, field, ignore, arg_type):
+def _fetch_arg(self, field, ignore, arg_type):
     if field not in self.args:
         if ignore == True:
             return None
@@ -39,17 +39,17 @@ def __fetch_arg(self, field, ignore, arg_type):
 
 
 def fetch_str(self, field, ignore=False, default=None):
-    res = self.__fetch_arg(field, ignore, str)
+    res = self._fetch_arg(field, ignore, str)
     return default if res == None else res
 
 
 def fetch_int(self, field, ignore=False, default=None):
-    res = self.__fetch_arg(field, ignore, int)
+    res = self._fetch_arg(field, ignore, int)
     return default if res == None else res
 
 
 def fetch_float(self, field, ignore=False, default=None):
-    res = self.__fetch_arg(field, ignore, float)
+    res = self._fetch_arg(field, ignore, float)
     return default if res == None else res
 
 
@@ -71,7 +71,7 @@ def get_function_param(self, func):
         if field in func.__annotations__:
             field_type = func.__annotations__[field]
 
-        res = self.__fetch_arg(field, ignore, field_type)
+        res = self._fetch_arg(field, ignore, field_type)
 
         if res == None:
             params[field] = default
@@ -81,7 +81,7 @@ def get_function_param(self, func):
     return params
 
 
-Request.__fetch_arg = __fetch_arg
+Request._fetch_arg = _fetch_arg
 Request.fetch_str = fetch_str
 Request.fetch_int = fetch_int
 Request.fetch_float = fetch_float

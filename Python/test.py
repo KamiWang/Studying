@@ -1,8 +1,9 @@
 import filesystem as fs
 
 
-def your(a: int, b, r=989, k=100, *skk):
-    pass
+c = 12345677
 
 
-print(5.0 % 2.2)
+v = (c & (1 << 4)) >> 4
+
+print(v)

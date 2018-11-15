@@ -3,14 +3,16 @@ import math
 from sanic import Blueprint
 
 import exception as expt
-from sanic_common import CommonReply
+import sanic_common as sc
+import common as com
+import xmath.math_base as xmb
 
 bp = Blueprint(__name__, url_prefix='')
 
 
 @bp.route("")
 async def help(req):
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.api_list = list()
     for route in bp.routes:
         if route.uri:
@@ -22,7 +24,7 @@ async def help(req):
 async def plus(req):
     a = req.fetch_float("a")
     b = req.fetch_float("b")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a + b
     return reply.json
 
@@ -31,7 +33,7 @@ async def plus(req):
 async def minus(req):
     a = req.fetch_float("a")
     b = req.fetch_float("b")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a - b
     return reply.json
 
@@ -40,7 +42,7 @@ async def minus(req):
 async def multiply(req):
     a = req.fetch_float("a")
     b = req.fetch_float("b")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a * b
     return reply.json
 
@@ -49,7 +51,7 @@ async def multiply(req):
 async def divide(req):
     a = req.fetch_float("a")
     b = req.fetch_float("b")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a / b
     return reply.json
 
@@ -58,7 +60,7 @@ async def divide(req):
 async def divide_exactly(req):
     a = req.fetch_float("a")
     b = req.fetch_float("b")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a // b
     reply.remainder = a % b
     return reply.json
@@ -67,7 +69,7 @@ async def divide_exactly(req):
 @bp.route("factorial")
 async def factorial(req):
     a = req.fetch_int("a")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = math.factorial(a)
     return reply.json
 
@@ -75,7 +77,7 @@ async def factorial(req):
 @bp.route("sqrt")
 async def sqrt(req):
     a = req.fetch_float("a")
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = math.sqrt(a)
     return reply.json
 
@@ -84,6 +86,14 @@ async def sqrt(req):
 async def square(req):
     a = req.fetch_float("a")
     n = req.fetch_float("n", ignore=True, default=2.0)
-    reply = CommonReply()
+    reply = sc.CommonReply()
     reply.result = a**n
+    return reply.json
+
+
+@bp.route(com.function_name_capitalize(xmb.radix_convert))
+async def radix_convert(req):
+    params = req.get_function_param(xmb.radix_convert)
+    reply = sc.CommonReply()
+    reply.result = xmb.radix_convert(**params)
     return reply.json
