@@ -20,53 +20,70 @@ async def help(req):
 
 @bp.route("plus")
 async def plus(req):
-    x = req.fetch_float("x")
-    y = req.fetch_float("y")
+    a = req.fetch_float("a")
+    b = req.fetch_float("b")
     reply = CommonReply()
-    reply.result = x + y
+    reply.result = a + b
     return reply.json
 
 
 @bp.route("minus")
 async def minus(req):
-    x = req.fetch_float("x")
-    y = req.fetch_float("y")
+    a = req.fetch_float("a")
+    b = req.fetch_float("b")
     reply = CommonReply()
-    reply.result = x - y
+    reply.result = a - b
     return reply.json
 
 
 @bp.route("multiply")
 async def multiply(req):
-    x = req.fetch_float("x")
-    y = req.fetch_float("y")
+    a = req.fetch_float("a")
+    b = req.fetch_float("b")
     reply = CommonReply()
-    reply.result = x * y
+    reply.result = a * b
     return reply.json
 
 
 @bp.route("divide")
 async def divide(req):
-    x = req.fetch_float("x")
-    y = req.fetch_float("y")
+    a = req.fetch_float("a")
+    b = req.fetch_float("b")
     reply = CommonReply()
-    reply.result = x / y
+    reply.result = a / b
     return reply.json
 
 
 @bp.route("divideExactly")
 async def divide_exactly(req):
-    x = req.fetch_float("x")
-    y = req.fetch_float("y")
+    a = req.fetch_float("a")
+    b = req.fetch_float("b")
     reply = CommonReply()
-    reply.result = x // y
-    reply.remainder = x % y
+    reply.result = a // b
+    reply.remainder = a % b
     return reply.json
 
 
 @bp.route("factorial")
 async def factorial(req):
-    x = req.fetch_int("x")
+    a = req.fetch_int("a")
     reply = CommonReply()
-    reply.result = math.factorial(x)
+    reply.result = math.factorial(a)
+    return reply.json
+
+
+@bp.route("sqrt")
+async def sqrt(req):
+    a = req.fetch_float("a")
+    reply = CommonReply()
+    reply.result = math.sqrt(a)
+    return reply.json
+
+
+@bp.route("square")
+async def square(req):
+    a = req.fetch_float("a")
+    n = req.fetch_float("n", ignore=True, default=2.0)
+    reply = CommonReply()
+    reply.result = a**n
     return reply.json

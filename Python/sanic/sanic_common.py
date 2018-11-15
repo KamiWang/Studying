@@ -1,6 +1,9 @@
-import exception as expt
+import math
+
 import sanic.response as sanJson
 from sanic.request import Request
+
+import exception as expt
 
 
 class CommonReply:
@@ -18,6 +21,15 @@ def __fetch_arg(self, field, ignore, arg_type):
             return None
         else:
             raise expt.ExceptionEx(expt.ErrorCode.ARGUMENT_NOT_FOUND, f"'{field}' not found")
+
+    if arg_type is float:
+        if self.args[field][0] == "e":
+            return math.e
+        elif self.args[field][0] == "pi":
+            return math.pi
+    elif arg_type is list:
+        return self.args[field]
+
     try:
         result = arg_type(self.args[field][0])
     except ValueError:
