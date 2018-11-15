@@ -49,6 +49,6 @@ def radix_convert(src, src_base: int = 0, dst_base: int = 10):
     result = _radix_interger_convert(src_str[0], src_base, dst_base)
 
     if len(src_str) > 1:
-        result += '.' + _radix_interger_convert(src_str[1], src_base, dst_base)
+        result += '.' + _radix_decimals_convert(src_str[1], src_base, dst_base)
 
     return result
