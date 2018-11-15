@@ -25,8 +25,6 @@ class ExceptionEx(SanicException):
 def process_exception(req, ex):
     if isinstance(ex, ExceptionEx):
         return ex.json
-    elif isinstance(ex, KeyError):
-        return sanJson.json({"code": ErrorCode.ARGUMENT_NOT_FOUND[0], "error": ErrorCode.ARGUMENT_NOT_FOUND[1] + str(ex)})
     elif isinstance(ex, SanicException):
         return sanJson.json({"code": ex.status_code, "error": str(ex)})
     else:
