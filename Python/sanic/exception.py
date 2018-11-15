@@ -4,13 +4,14 @@ from sanic.exceptions import SanicException
 
 class ErrorCode:
     # 未知错误
-    UNKNOWN_ERROR = (-1, "unknown error")
+    SYSTEM_ERROR = (-1, "System Error")
     # 玩家授权失败
-    AUTHORIZE_INVALID = (10000, "Permission Denied")
+    AUTHORIZE_INVALID = (10000, "Permission denied")
     # 缺少参数
-    ARGUMENT_NOT_FOUND = (20000, "argument not found:")
+    ARGUMENT_NOT_FOUND = (20000, "Argument not found:")
     # 参数错误
-    INVALIDE_PARAMETER = (20001, "invalide parameter")
+    INVALIDE_PARAMETER = (20001, "Invalide parameter")
+
 
 class ExceptionEx(SanicException):
     def __init__(self, err_code, detail=""):
@@ -26,6 +27,6 @@ def process_exception(req, ex):
     if isinstance(ex, ExceptionEx):
         return ex.json
     elif isinstance(ex, SanicException):
-        return sanJson.json({"code": ex.status_code, "error": str(ex)})
+        return sanJson.json({"code": ex.status_code, "error": ex.__class__.__name__, "details": str(ex)})
     else:
-        return sanJson.json({"code": ErrorCode.UNKNOWN_ERROR[0], "error": str(ex)})
+        return sanJson.json({"code": ErrorCode.SYSTEM_ERROR[0], "error": ex.__class__.__name__, "details": str(ex)})
