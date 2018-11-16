@@ -74,7 +74,7 @@ class Folder(FObject):
         if not os.path.isdir(self._path):
             raise Exception("Folder not found:" + self._path)
         self._file_list = []
-        self.__traversal_add_file()
+        self._traversal_add_file()
 
     def __getitem__(self, index)->FObject:
         if isinstance(index, int):
@@ -114,7 +114,7 @@ class Folder(FObject):
         for fobj in self._file_list:
             fobj.print_file_tree(layer=layer+1)
 
-    def __traversal_add_file(self):
+    def _traversal_add_file(self):
         try:
             for name in os.listdir(self._path):
                 path_name = path_join(self._path, name)
