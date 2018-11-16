@@ -2,13 +2,13 @@
 
 import web_sanic
 from configparser import ConfigParser
-from common.filesystem import dir_path
+from common.filesystem import exec_dir
 
 
 if "__main__" == __name__:
     config = ConfigParser()
-    config.read(dir_path(__file__) + "config.ini")
-    
+    config.read(exec_dir() + "config.ini")
+
     ip = config.get("httplistener", "ip")
     port = config.getint("httplistener", "port")
 

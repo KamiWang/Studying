@@ -2,14 +2,11 @@
 
 import os
 import re
+import sys
 
 
-def real_path(path):
-    return os.path.realpath(path).replace('\\', '/')
-
-
-def dir_path(path):
-    return os.path.dirname(real_path(path))+'/'
+def exec_dir():
+    return os.path.dirname(sys.argv[0]).replace('\\', '/') + '/'
 
 
 def path_join(*names):
@@ -144,5 +141,5 @@ class File(FObject):
 
 
 if __name__ == "__main__":
-    f = File(__file__)
-    print(f.name)
+    print(__file__)
+
