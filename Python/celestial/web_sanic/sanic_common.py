@@ -1,9 +1,10 @@
 import math
 
-import sanic.response as sanJson
+from sanic.exceptions import SanicException
 from sanic.request import Request
+from sanic.response import json
 
-import exception as expt
+from common.exception import ErrorCode, ExceptionEx
 
 
 class CommonReply:
@@ -12,7 +13,7 @@ class CommonReply:
 
     @property
     def json(self):
-        return sanJson.json(self.__dict__)
+        return json(self.__dict__)
 
 
 def _fetch_arg(self, field, ignore, arg_type):
@@ -20,7 +21,7 @@ def _fetch_arg(self, field, ignore, arg_type):
         if ignore == True:
             return None
         else:
-            raise expt.ExceptionEx(expt.ErrorCode.ARGUMENT_NOT_FOUND, f"'{field}' not found")
+            raise ExceptionEx(ErrorCode.ARGUMENT_NOT_FOUND, f"'{field}' not found")
 
     if arg_type is float:
         if self.args[field][0] == "e":
@@ -33,7 +34,7 @@ def _fetch_arg(self, field, ignore, arg_type):
     try:
         result = arg_type(self.args[field][0])
     except ValueError:
-        raise expt.ExceptionEx(expt.ErrorCode.INVALIDE_PARAMETER, f"'{field}' must be {arg_type.__name__}")
+        raise ExceptionEx(ErrorCode.INVALIDE_PARAMETER, f"'{field}' must be {arg_type.__name__}")
 
     return result
 
