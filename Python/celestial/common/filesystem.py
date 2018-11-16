@@ -4,6 +4,14 @@ import os
 import re
 
 
+def real_path(path):
+    return os.path.realpath(path).replace('\\', '/')
+
+
+def dir_path(path):
+    return os.path.dirname(real_path(path))+'/'
+
+
 def path_join(*names):
     return "/".join(names)
 
