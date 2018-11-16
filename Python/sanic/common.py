@@ -1,4 +1,4 @@
-def name_capitalize(name, acronym=True):
+def name_capitalize(name, acronym=False):
     temp = name.split("_")
     for i in range(len(temp)):
         if i == 0 and not acronym:

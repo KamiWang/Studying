@@ -44,6 +44,11 @@ def _radix_decimals_convert(number, src_base, dst_base):
 
 
 def radix_convert(src, src_base: int = 0, dst_base: int = 10):
+    symbol = ''
+    if src[0] == '-':
+        symbol = '-'
+        src = src[1:]
+
     if src_base == 0:
         if src[:2] == "0b":
             src_base = 2
@@ -65,4 +70,4 @@ def radix_convert(src, src_base: int = 0, dst_base: int = 10):
         if decimals_str:
             result += '.' + decimals_str
 
-    return result
+    return symbol + result
