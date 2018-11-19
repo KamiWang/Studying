@@ -2,8 +2,8 @@ import sanic
 from sanic.exceptions import SanicException
 from sanic.response import json
 
-import web_sanic.sanic_common as wsc
-from web_sanic.math_route import bp as math_bp
+import xsanic.sanic_common as wsc
+from xsanic.math_route import bp as math_bp
 from common.exception import ExceptionEx, ErrorCode
 
 
