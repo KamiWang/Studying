@@ -6,6 +6,7 @@ import web_sanic.sanic_common as wsc
 from web_sanic.math_route import bp as math_bp
 from common.exception import ExceptionEx, ErrorCode
 
+
 app = sanic.Sanic(__name__)
 app.blueprint(math_bp)
 
@@ -32,7 +33,7 @@ async def when_exception(request, exception):
 
 
 def run(host, port):
-    app.run(host, port, debug=True)
+    app.run(host, port)
 
 
 def process_exception(request, exception):

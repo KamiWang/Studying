@@ -3,7 +3,7 @@ from configparser import ConfigParser
 from common.filesystem import exec_dir, path_join
 
 
-class ConfigLoader:
+class ConfigManager:
     def __init__(self, path):
         self.config = ConfigParser()
         self.config.read(path_join(exec_dir(), path))
