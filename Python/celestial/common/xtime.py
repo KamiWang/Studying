@@ -20,16 +20,15 @@ def run_duration(call_func=lambda e: print(e)):
     return warpper1
 
 
-class SimpleTimer:
-    t0 = t1 = 0
-
-    @classmethod
-    def start(cls):
-        cls.t0 = timeit.default_timer()
-
-    @classmethod
-    def stop(cls):
-        return timeit.default_timer() - cls.t0
+start_xtime = 0
 
 
+def start_timer():
+    global start_xtime
+    start_xtime = timeit.default_timer()
+    return start_xtime
 
+
+def stop_timer():
+    global start_xtime
+    return timeit.default_timer() - start_xtime

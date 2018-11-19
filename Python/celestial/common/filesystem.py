@@ -13,6 +13,7 @@ def path_join(*names):
     return "/".join(names)
 
 
+
 class FObject:
     def __init__(self, path):
         self._path = path.replace('\\', '/').lstrip('/')
