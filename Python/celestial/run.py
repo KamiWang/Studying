@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 
 import web_sanic
-from configparser import ConfigParser
-from common.filesystem import exec_dir
+from common.config_loader import ConfigLoader
 
 
 if "__main__" == __name__:
-    config = ConfigParser()
-    config.read(exec_dir() + "config.ini")
+    config = ConfigLoader("./config.ini")
+    config.select_section("httplistener")
 
-    ip = config.get("httplistener", "ip")
-    port = config.getint("httplistener", "port")
-
-    web_sanic.run(ip, port)
+    web_sanic.run(config["ip"], config["port"])

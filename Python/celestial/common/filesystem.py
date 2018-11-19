@@ -10,8 +10,7 @@ def exec_dir():
 
 
 def path_join(*names):
-    return "/".join(names)
-
+    return os.path.normpath("/".join(names)).replace('\\', '/')
 
 
 class FObject:
