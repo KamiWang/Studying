@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 import xsanic
-from common.config_manager import ConfigManager
+from common.xconfig import XConfig
 
 
 def start_server():
-    config = ConfigManager("./config/httpserver.ini")
-    config.select_section("listener")
-    xsanic.run(config["ip"], config["port"])
+    http_config = XConfig("./config/httpserver.ini")
+    xsanic.run(http_config["listener"]["ip"], http_config["listener"]["port"])
 
 
 if "__main__" == __name__:
