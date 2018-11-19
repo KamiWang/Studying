@@ -6,6 +6,7 @@ PROJECT (Studying)
 
 # 添加目录下的所有源文件
 AUX_SOURCE_DIRECTORY(./DesignPatterns/ DesignPatternsSource)
+AUX_SOURCE_DIRECTORY(./ MainSource)
 
 # 设置为C++最新标准
 INCLUDE(CheckCXXCompilerFlag)
@@ -22,7 +23,7 @@ MESSAGE(STATUS "操作系统:${CMAKE_SYSTEM}")
 MESSAGE(STATUS "编译器:${CMAKE_CXX_COMPILER}")
 
 # 指定生成目标
-ADD_EXECUTABLE(studying main.cpp ${DesignPatternsSource})
+ADD_EXECUTABLE(studying ${MainSource} ${DesignPatternsSource})
 
 
 
