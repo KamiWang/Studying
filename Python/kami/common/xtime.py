@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-from functools import wraps
 import timeit
-import time
+from functools import wraps
 
 
-def run_duration(call_func=lambda e: print(e)):
+def run_duration(call_func=lambda d: print(d)):
     def warpper1(func):
         @wraps(func)
         def warpper2(*args, **kwargs):
@@ -20,15 +19,37 @@ def run_duration(call_func=lambda e: print(e)):
     return warpper1
 
 
-start_xtime = 0
+class XTimer:
+    def __init__(self, auto=False, auto_callback=lambda d: print(d)):
+        self.start_xtime = None
+        self.auto = auto
+        self.auto_callback = auto_callback
+        if auto:
+            self.start()
+
+    def __del__(self):
+        if self.auto and self.start_xtime and self.auto_callback:
+            self.auto_callback(timeit.default_timer() - self.start_xtime)
+
+    def start(self):
+        self.start_xtime = timeit.default_timer()
+        return self.start_xtime
+
+    def seek(self):
+        if not self.start_xtime:
+            return None
+        return timeit.default_timer() - self.start_xtime
+
+    def stop(self):
+        duration = self.seek()
+        self.start_xtime = None
+        return duration
+
+    def restart(self):
+        duration = self.seek()
+        self.start()
+        return duration
 
 
-def start_timer():
-    global start_xtime
-    start_xtime = timeit.default_timer()
-    return start_xtime
-
-
-def stop_timer():
-    global start_xtime
-    return timeit.default_timer() - start_xtime
+if "__main__" == __name__:
+    pass
