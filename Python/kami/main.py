@@ -12,7 +12,7 @@ def start_http_server():
 
 
 if "__main__" == __name__:
-    urls = ["https://www.qq.com"]
+    urls = ["https://blog.csdn.net"]
     crawler.run(urls)
 
     start_http_server()
