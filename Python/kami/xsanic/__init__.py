@@ -11,6 +11,10 @@ app = sanic.Sanic(__name__)
 app.blueprint(math_bp)
 
 
+def run(host, port):
+    app.run(host, port)
+
+
 @app.route("/")
 async def index(req):
     return sanic.response.text("Hello World")
@@ -30,10 +34,6 @@ async def when_response(request, response):
 @app.exception(Exception)
 async def when_exception(request, exception):
     return process_exception(request, exception)
-
-
-def run(host, port):
-    app.run(host, port)
 
 
 def process_exception(request, exception):
