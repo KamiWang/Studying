@@ -5,7 +5,7 @@ import crawler.common as cc
 async def main():
     async with aiohttp.ClientSession() as session:
         html = await get("https://www.qq.com", session)
-        await process(html, session)
+        return await process(html, session)
 
 
 async def get(url, session):

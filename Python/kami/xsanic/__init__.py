@@ -1,14 +1,17 @@
+
 import sanic
 from sanic.exceptions import SanicException
 from sanic.response import json
 
-import xsanic.common as wsc
-from xsanic.math_route import bp as math_bp
 from common.exception import ExceptionEx, ErrorCode
+
+from xsanic.math_route import bp as mbp
+
+from common.filesystem import exec_dir, path_join
 
 
 app = sanic.Sanic(__name__)
-app.blueprint(math_bp)
+app.blueprint(mbp)
 
 
 def run(host, port):
@@ -17,7 +20,13 @@ def run(host, port):
 
 @app.route("/")
 async def index(req):
-    return sanic.response.text("Hello World")
+    return sanic.response.text("Hello World !!!")
+
+
+@app.route("/favicon.ico")
+async def favicon(req):
+    path = path_join(exec_dir(), "./resource/icon/favicon.ico")
+    return await sanic.response.file(path)
 
 
 @app.middleware("request")
