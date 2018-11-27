@@ -11,8 +11,10 @@ def start_http_server():
     xsanic.run(http_config["listener"]["ip"], http_config["listener"]["port"])
 
 
-if "__main__" == __name__:
-    urls = ["https://blog.csdn.net"]
-    crawler.run(urls)
+def run_crawler():
+    crawler.run()
 
+
+if "__main__" == __name__:
+    run_crawler()
     start_http_server()

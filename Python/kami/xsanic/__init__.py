@@ -2,7 +2,7 @@ import sanic
 from sanic.exceptions import SanicException
 from sanic.response import json
 
-import xsanic.sanic_common as wsc
+import xsanic.common as wsc
 from xsanic.math_route import bp as math_bp
 from common.exception import ExceptionEx, ErrorCode
 

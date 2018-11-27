@@ -2,7 +2,7 @@ from sanic import Blueprint
 
 import xmath.basic as xmb
 from common.string_tools import format_func_name_to_camel as f2c
-from xsanic.sanic_common import CommonReply
+from xsanic.common import CommonReply
 
 bp = Blueprint(__name__, url_prefix='math/')
 
