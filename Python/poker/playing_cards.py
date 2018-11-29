@@ -3,6 +3,8 @@
 import random
 
 # 花色
+
+
 class CardColour:
     diamond = 1
     clubs = 2
@@ -47,7 +49,8 @@ class PlayingCards:
                 color_list.extend(color)
             else:
                 color_list.append(color)
-        self.cards = [x for x in self.cards if x[0] not in color_list and x[1] not in num_list]
+        self.cards = [x for x in self.cards if x[0]
+                      not in color_list and x[1] not in num_list]
 
     # 创建牌
     def _new(self, count):
@@ -59,9 +62,6 @@ class PlayingCards:
                     self.cards.append((c, n))
             self.cards.append((CardColour.joker, 98))
             self.cards.append((CardColour.joker, 99))
-
-
-
 
 
 if "__main__" == __name__:

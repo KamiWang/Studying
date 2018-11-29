@@ -1,8 +1,10 @@
 import math
 
 
-digit_map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
-             'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+digit_map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+             'U', 'V', 'W', 'X', 'Y', 'Z']
 
 
 def plus(a: float, b: float):
@@ -57,17 +59,18 @@ def radix_convert(src, src_base: int = 0, dst_base: int = 10):
         raise ValueError("base must be >= 2 and <= 36")
 
     src_parts = str(src).split(".")
-    result = _radix_interger_convert(src_parts[0], src_base, dst_base)
+    result = _radix_integer_convert(src_parts[0], src_base, dst_base)
 
     if len(src_parts) > 1:
-        decimals_str = _radix_decimals_convert(src_parts[1], src_base, dst_base)
+        decimals_str = _radix_decimals_convert(
+            src_parts[1], src_base, dst_base)
         if decimals_str:
             result += '.' + decimals_str
 
     return symbol + result
 
 
-def _radix_interger_convert(number, src_base, dst_base):
+def _radix_integer_convert(number, src_base, dst_base):
     base_10_num = int(number, src_base)
     if dst_base == 10:
         return str(base_10_num)

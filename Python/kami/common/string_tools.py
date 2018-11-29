@@ -12,7 +12,7 @@ def format_to_camel(name, sep='_', first_cap=False):
 
 def format_func_name_to_camel(func, sep='_', first_cap=False):
     return format_to_camel(func.__name__, sep, first_cap)
-   
+
 
 if "__main__" == __name__:
     print(format_func_name_to_camel(format_to_camel))

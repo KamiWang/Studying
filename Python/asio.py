@@ -1,6 +1,7 @@
 import asyncio
 import logging
 
+
 async def tcp_echo_client(message):
     reader, writer = await asyncio.open_connection('10.10.10.11', 8888)
 
@@ -8,7 +9,6 @@ async def tcp_echo_client(message):
         print(f'Send: {message!r}')
         writer.write(message.encode())
 
-    
     data = await reader.read(100)
     print(f'Received: {data.decode()!r}')
 
@@ -16,6 +16,7 @@ async def tcp_echo_client(message):
     writer.close()
 
 asyncio.run(tcp_echo_client('你好!'))
+
 
 def server():
     logging.basicConfig(level=logging.NOTSET)
@@ -36,15 +37,11 @@ def server():
 
             print(message)
 
-
     async def main():
         server = await asyncio.start_server(handle_echo, "10.10.10.11", 8888)
-
         addr = server.sockets[0].getsockname()
-        print(addr) 
-
+        print(addr)
         async with server:
             await server.serve_forever()
-
 
     asyncio.run(main())

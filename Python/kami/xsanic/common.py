@@ -1,6 +1,5 @@
 import math
 
-from sanic.exceptions import SanicException
 from sanic.request import Request
 from sanic.response import json
 
@@ -18,7 +17,7 @@ class CommonReply:
 
 def _fetch_arg(self, field, ignore, arg_type):
     if field not in self.args:
-        if ignore == True:
+        if ignore:
             return None
         else:
             raise ExceptionEx(ErrorCode.ARGUMENT_NOT_FOUND, f"'{field}' not found")
@@ -34,24 +33,25 @@ def _fetch_arg(self, field, ignore, arg_type):
     try:
         result = arg_type(self.args[field][0])
     except ValueError:
-        raise ExceptionEx(ErrorCode.INVALIDE_PARAMETER, f"'{field}' must be {arg_type.__name__}")
+        raise ExceptionEx(ErrorCode.INVALIDE_PARAMETER,
+                          f"'{field}' must be {arg_type.__name__}")
 
     return result
 
 
 def fetch_str(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, str)
-    return default if res == None else res
+    return default if not res else res
 
 
 def fetch_int(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, int)
-    return default if res == None else res
+    return default if not res else res
 
 
 def fetch_float(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, float)
-    return default if res == None else res
+    return default if not res else res
 
 
 def get_function_param(self, func):
@@ -65,7 +65,7 @@ def get_function_param(self, func):
         default = None
         ignore = False
         if default_index <= i:
-            default = func.__defaults__[i-default_index]
+            default = func.__defaults__[i - default_index]
             ignore = True
 
         field_type = str
@@ -74,10 +74,10 @@ def get_function_param(self, func):
 
         res = self._fetch_arg(field, ignore, field_type)
 
-        if res == None:
-            params[field] = default
-        else:
+        if res:
             params[field] = res
+        else:
+            params[field] = default
 
     return params
 

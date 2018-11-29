@@ -10,11 +10,11 @@ def singleton(cls):
     _instance_lock = threading.Lock()
 
     @wraps(cls)
-    def getinstance(*args, **kwargs):
+    def get_instance(*args, **kwargs):
         nonlocal _instance
         nonlocal _instance_lock
         with _instance_lock:
-            if None == _instance:
+            if not _instance:
                 _instance = cls(*args, **kwargs)
             return _instance
-    return getinstance
+    return get_instance
