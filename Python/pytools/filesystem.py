@@ -46,6 +46,8 @@ class FileTree:
         return self.node
 
     def print_tree(self):
+        if self.node is None:
+            return
         self.node.print_children(0)
 
     def refresh(self):
@@ -90,6 +92,18 @@ class FileNode:
             self.parent.children[name] = self.parent.children.pop(self.name)
         self.name = name
 
+    def delete(self):
+        for root, dirs, files in os.walk(self.path):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        os.rmdir(self.path)
+        if self.parent is None:
+            self.tree.node = None
+        else:
+            self.parent.children.pop(self.name)
+
     @property
     def path(self):
         path_list = list()
@@ -124,4 +138,4 @@ class FileNode:
 
 
 if "__main__" == __name__:
-    print(join_exec_path("./"))
+    pass
