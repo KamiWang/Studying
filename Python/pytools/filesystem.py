@@ -85,17 +85,34 @@ class FileNode:
             self.parent.children[name] = self.parent.children.pop(self.name)
         self.name = name
 
-    def delete(self):
-        for root, dirs, files in os.walk(self.path):
-            for name in files:
-                os.remove(os.path.join(root, name))
-            for name in dirs:
-                os.rmdir(os.path.join(root, name))
-        os.rmdir(self.path)
+    def remove(self):
+        if self.is_dir:
+            for root_path, dirs, files in os.walk(self.path):
+                for name in files:
+                    os.remove(os.path.join(root_path, name))
+                for name in dirs:
+                    os.rmdir(os.path.join(root_path, name))
+            os.rmdir(self.path)
+        else:
+            os.remove(self.path)
         if self.parent is None:
             self.tree.node = None
         else:
             self.parent.children.pop(self.name)
+
+    def find_all(self, names: list):
+        node_list = list()
+        for name in names:
+            for it in self:
+                if it.name == name:
+                    node_list.append(it)
+        return node_list
+
+    def delete_all(self, names: list):
+        all_files = self.find_all(names)
+        for node in all_files:
+            node.remove()
+        return len(all_files)
 
     def file_count(self, include_dir=False):
         if self.is_dir:
