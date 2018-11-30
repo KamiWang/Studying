@@ -3,8 +3,6 @@ import math
 from sanic.request import Request
 from sanic.response import json
 
-from common.exception import ErrorCode, ExceptionEx
-
 
 class CommonReply:
     def __init__(self):
@@ -20,7 +18,7 @@ def _fetch_arg(self, field, ignore, arg_type):
         if ignore:
             return None
         else:
-            raise ExceptionEx(ErrorCode.ARGUMENT_NOT_FOUND, f"'{field}' not found")
+            raise ValueError(f"'{field}' not found")
 
     if arg_type is float:
         if self.args[field][0] == "e":
@@ -33,25 +31,24 @@ def _fetch_arg(self, field, ignore, arg_type):
     try:
         result = arg_type(self.args[field][0])
     except ValueError:
-        raise ExceptionEx(ErrorCode.INVALIDE_PARAMETER,
-                          f"'{field}' must be {arg_type.__name__}")
+        raise ValueError(f"'{field}' must be {arg_type.__name__}")
 
     return result
 
 
 def fetch_str(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, str)
-    return default if not res else res
+    return default if res is None else res
 
 
 def fetch_int(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, int)
-    return default if not res else res
+    return default if res is None else res
 
 
 def fetch_float(self, field, ignore=False, default=None):
     res = self._fetch_arg(field, ignore, float)
-    return default if not res else res
+    return default if res is None else res
 
 
 def get_function_param(self, func):
@@ -74,10 +71,10 @@ def get_function_param(self, func):
 
         res = self._fetch_arg(field, ignore, field_type)
 
-        if res:
-            params[field] = res
-        else:
+        if res is None:
             params[field] = default
+        else:
+            params[field] = res
 
     return params
 

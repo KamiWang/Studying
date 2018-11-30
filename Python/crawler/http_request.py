@@ -17,34 +17,35 @@ class HTTPRequestClient:
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.destory()
+        await self.destroy()
+
+    @staticmethod
+    def get_coding(response):
+        charset = "utf-8"
+        try:
+            charset = response.get_encoding()
+        except TypeError:
+            return charset
+        if charset.find("gb") >= 0:
+            charset = "gb18030"
+        return charset
 
     async def init(self):
         self.session = aiohttp.ClientSession()
 
-    async def destory(self):
+    async def destroy(self):
         await self.session.close()
 
     async def get(self, url):
         async with self.session.get(url, headers=self.headers) as response:
             return await response.text(self.get_coding(response))
 
-    def get_coding(self, response):
-        charset = "utf-8"
-        try:
-            charset = response.get_encoding()
-        except Exception:
-            return charset
-        if charset.find("gb") >= 0:
-            charset = "gb18030"
-        return charset
-
-
-async def go():
-    async with HTTPRequestClient() as client:
-        html = await client.get("https://www.qq.com")
-        print(html)
-
 
 if __name__ == "__main__":
+    async def go():
+        async with HTTPRequestClient() as client:
+            html = await client.get("https://www.baidu.com")
+            print(html)
+
+
     asyncio.run(go())

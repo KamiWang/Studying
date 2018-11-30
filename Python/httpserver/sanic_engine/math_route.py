@@ -1,14 +1,14 @@
 from sanic import Blueprint
 
-import xmath.basic as xmb
-from common.string_tools import format_func_name_to_camel as f2c
-from xsanic.common import CommonReply
+import mathematics.base as xmb
+from pytools.common import format_function_identifier as ffi
+from httpserver.sanic_engine.common import CommonReply
 
-bp = Blueprint(__name__, url_prefix='math/')
+bp = Blueprint(__name__, url_prefix="math/")
 
 
 @bp.route("")
-async def help(req):
+async def home(request):
     reply = CommonReply()
     reply.api_list = list()
     for route in bp.routes:
@@ -17,7 +17,7 @@ async def help(req):
     return reply.json
 
 
-@bp.route(f2c(xmb.plus))
+@bp.route(ffi(xmb.plus))
 async def plus(request):
     params = request.get_function_param(xmb.plus)
     reply = CommonReply()
@@ -25,7 +25,7 @@ async def plus(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.minus))
+@bp.route(ffi(xmb.minus))
 async def minus(request):
     params = request.get_function_param(xmb.minus)
     reply = CommonReply()
@@ -33,7 +33,7 @@ async def minus(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.multiply))
+@bp.route(ffi(xmb.multiply))
 async def multiply(request):
     params = request.get_function_param(xmb.multiply)
     reply = CommonReply()
@@ -41,7 +41,7 @@ async def multiply(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.divide))
+@bp.route(ffi(xmb.divide))
 async def divide(request):
     params = request.get_function_param(xmb.divide)
     reply = CommonReply()
@@ -49,7 +49,7 @@ async def divide(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.divide_exactly))
+@bp.route(ffi(xmb.divide_exactly))
 async def divide_exactly(request):
     params = request.get_function_param(xmb.divide_exactly)
     reply = CommonReply()
@@ -59,7 +59,7 @@ async def divide_exactly(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.factorial))
+@bp.route(ffi(xmb.factorial))
 async def factorial(request):
     params = request.get_function_param(xmb.factorial)
     reply = CommonReply()
@@ -67,15 +67,15 @@ async def factorial(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.sqrt))
-async def sqrt(request):
-    params = request.get_function_param(xmb.sqrt)
+@bp.route(ffi(xmb.square_root))
+async def square_root(request):
+    params = request.get_function_param(xmb.square_root)
     reply = CommonReply()
-    reply.result = xmb.sqrt(**params)
+    reply.result = xmb.square_root(**params)
     return reply.json
 
 
-@bp.route(f2c(xmb.square))
+@bp.route(ffi(xmb.square))
 async def square(request):
     params = request.get_function_param(xmb.square)
     reply = CommonReply()
@@ -83,7 +83,7 @@ async def square(request):
     return reply.json
 
 
-@bp.route(f2c(xmb.radix_convert))
+@bp.route(ffi(xmb.radix_convert))
 async def radix_convert(request):
     params = request.get_function_param(xmb.radix_convert)
     reply = CommonReply()

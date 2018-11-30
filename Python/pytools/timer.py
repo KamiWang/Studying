@@ -4,7 +4,7 @@ import timeit
 from functools import wraps
 
 
-def run_duration(call_func=lambda d: print(d)):
+def timer_decorator(call_func=lambda d: print(d)):
     def wrapper1(func):
         @wraps(func)
         def wrapper2(*args, **kwargs):
@@ -15,11 +15,13 @@ def run_duration(call_func=lambda d: print(d)):
             elapsed = timeit.default_timer() - t0
             call_func(elapsed)
             return res
+
         return wrapper2
+
     return wrapper1
 
 
-class XTimer:
+class Timer:
     def __init__(self, auto=False, auto_callback=lambda d: print(d)):
         self.start_time = None
         self.auto = auto
@@ -49,7 +51,3 @@ class XTimer:
         duration = self.seek()
         self.start()
         return duration
-
-
-if "__main__" == __name__:
-    pass

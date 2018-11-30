@@ -1,6 +1,5 @@
 import math
 
-
 digit_map = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
              'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
              'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
@@ -31,12 +30,12 @@ def factorial(a: int):
     return math.factorial(a)
 
 
-def sqrt(a: float):
+def square_root(a: float):
     return math.sqrt(a)
 
 
 def square(a: float, n: float = 2.0):
-    return a**n
+    return a ** n
 
 
 def radix_convert(src, src_base: int = 0, dst_base: int = 10):
@@ -90,7 +89,7 @@ def _radix_decimals_convert(number, src_base, dst_base):
     if 10 != src_base:
         for i in range(len(number)):
             x = int(number[i], 36)
-            base_10_num += x * (src_base**-(i+1))
+            base_10_num += x * (src_base ** -(i + 1))
     else:
         base_10_num = float("0." + number)
 
