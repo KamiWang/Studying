@@ -30,13 +30,6 @@ class FileTree:
         else:
             raise ValueError("'path' is not exist")
 
-    def __getitem__(self, item):
-        return self.node[item]
-
-    def __iter__(self):
-        for it in self.node:
-            yield it
-
     @property
     def path(self):
         return self.node.path
@@ -76,7 +69,7 @@ class FileNode:
             else:
                 yield self.children[key]
 
-    def print_children(self, layer):
+    def print_children(self, layer=0):
         print('|' + '-' * layer + self.name)
         if self.children is None:
             return
@@ -103,6 +96,27 @@ class FileNode:
             self.tree.node = None
         else:
             self.parent.children.pop(self.name)
+
+    def file_count(self, include_dir=False):
+        if self.is_dir:
+            count = 0
+            for it in self:
+                if not include_dir and it.is_dir:
+                    continue
+                count += 1
+            return count
+        else:
+            return 1
+
+    @property
+    def size(self):
+        if self.is_dir:
+            size = 0
+            for it in self:
+                size += os.path.getsize(it.path)
+            return size
+        else:
+            return os.path.getsize(self.path)
 
     @property
     def path(self):
@@ -131,11 +145,15 @@ class FileNode:
 
     def _traversal_children(self, path):
         self.children = dict()
-        for child_name in os.listdir(path):
-            child_path = os.path.join(path, child_name)
-            node = FileNode(child_path, self, self.tree)
-            self.children[child_name] = node
+        try:
+            for child_name in os.listdir(path):
+                child_path = os.path.join(path, child_name)
+                node = FileNode(child_path, self, self.tree)
+                self.children[child_name] = node
+        except PermissionError:
+            return
 
 
 if "__main__" == __name__:
-    pass
+    root = FileTree("D:\腾讯游戏\英雄联盟").root
+    print(root.file_count(True))
