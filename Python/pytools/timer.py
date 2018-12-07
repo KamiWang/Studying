@@ -51,3 +51,10 @@ class Timer:
         duration = self.seek()
         self.start()
         return duration
+
+
+if "__main__" == __name__:
+    a = timeit.Timer("kk()", "import time\ndef kk():\n\ttime.sleep(1)\n")
+    print(a.timeit(2))
+
+    print(a.repeat(5, 2))
