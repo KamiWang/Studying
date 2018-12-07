@@ -45,13 +45,17 @@ class SQLMaker(metaclass=abc.ABCMeta):
 
 class EngineBase(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    async def query(self, sql: str, arguments: tuple) -> dict:
+    def sql_maker(self) -> SQLMaker:
         pass
 
     @abc.abstractmethod
-    async def execute(self, sql: str, arguments: tuple) -> int:
+    async def query(self, sql_maker) -> dict:
         pass
 
     @abc.abstractmethod
-    def sql(self) -> SQLMaker:
+    async def query_once(self, sql_maker):
+        pass
+
+    @abc.abstractmethod
+    async def execute(self, sql_maker) -> int:
         pass

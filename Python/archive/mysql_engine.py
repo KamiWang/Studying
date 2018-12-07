@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import string
 import aiomysql
 from archive.archive_base import SQLMaker, EngineBase
@@ -105,7 +103,7 @@ class MySQLMaker(SQLMaker):
             if isinstance(self.arguments[i], str):
                 new_args.append(self.arguments[i])
                 self.arguments[i] = "%s"
-        return sql % tuple(self.arguments), new_args if new_args else None
+        return sql % tuple(self.arguments), tuple(new_args) if new_args else None
 
 
 class MySQLEngine(EngineBase):
@@ -125,25 +123,42 @@ class MySQLEngine(EngineBase):
         await self.destroy()
 
     async def initialize(self):
-        self.pool = await aiomysql.create_pool(minsize=10, maxsize=10, echo=True,
-                                               host=self.host, port=self.port,
-                                               user=self.user, password=self.password,
-                                               db=self.schema)
+        self.pool = await aiomysql.create_pool(echo=True, host=self.host, port=self.port, user=self.user,
+                                               password=self.password, db=self.schema)
 
     async def destroy(self):
         self.pool.close()
         await self.pool.wait_closed()
 
-    def sql(self) -> MySQLMaker:
+    def sql_maker(self) -> MySQLMaker:
         return MySQLMaker()
 
-    async def query(self, sql, arg=None, cursor_type=aiomysql.DictCursor):
+    async def query(self, sql_maker) -> dict:
+        sql, args = sql_maker.make()
+        return await self.raw_query(sql, args, dict)
+
+    async def query_once(self, sql_maker):
+        sql, args = sql_maker.make()
+        async for it in self.raw_query_once(sql, args, dict):
+            yield it
+
+    async def execute(self, sql_maker) -> int:
+        sql, args = sql_maker.make()
+        return await self.raw_execute(sql, args)
+
+    async def raw_query(self, sql, arg=None, result_type=tuple):
+        cursor_type = aiomysql.Cursor
+        if result_type is dict:
+            cursor_type = aiomysql.DictCursor
         async with self.pool.acquire() as conn:
             async with conn.cursor(cursor_type) as cur:
                 await cur.execute(sql, arg)
                 return await cur.fetchall()
 
-    async def query_once(self, sql, arg=None, cursor_type=aiomysql.SSDictCursor):
+    async def raw_query_once(self, sql, arg=None, result_type=tuple):
+        cursor_type = aiomysql.SSCursor
+        if result_type is dict:
+            cursor_type = aiomysql.SSDictCursor
         async with self.pool.acquire() as conn:
             async with conn.cursor(cursor_type) as cur:
                 await cur.execute(sql, arg)
@@ -152,7 +167,7 @@ class MySQLEngine(EngineBase):
                     yield row
                     row = await cur.fetchone()
 
-    async def execute(self, sql, arg=None):
+    async def raw_execute(self, sql, arg=None):
         async with self.pool.acquire() as conn:
             async with conn.cursor() as cur:
                 if isinstance(arg, list):

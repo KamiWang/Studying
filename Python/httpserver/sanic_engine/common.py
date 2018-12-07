@@ -1,6 +1,6 @@
 import math
 
-from sanic.request import Request
+import sanic.request
 from sanic.response import json
 
 
@@ -79,8 +79,8 @@ def get_function_param(self, func):
     return params
 
 
-Request._fetch_arg = _fetch_arg
-Request.fetch_str = fetch_str
-Request.fetch_int = fetch_int
-Request.fetch_float = fetch_float
-Request.get_function_param = get_function_param
+sanic.request._fetch_arg = _fetch_arg
+sanic.request.fetch_str = fetch_str
+sanic.request.fetch_int = fetch_int
+sanic.request.fetch_float = fetch_float
+sanic.request.get_function_param = get_function_param

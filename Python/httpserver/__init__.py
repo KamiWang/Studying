@@ -1,21 +1,15 @@
 #!/usr/bin/env python
 
 
-from configparser import ConfigParser
 import httpserver.sanic_engine as http_engine
-from pytools.filesystem import join_current_path
-
-config = ConfigParser()
-config.read(join_current_path(__file__, "./config.ini"))
-ip = config["listener"]["ip"]
-port = config["listener"].getint("port")
-is_run = config["listener"].getboolean("run")
+from pytools.config import ConfigLoader
 
 
 def run():
-    if is_run:
-        http_engine.run(ip, port)
+    config = ConfigLoader().listener
+    if config.getboolean("run"):
+        http_engine.run(config["ip"], config["port"])
 
 
-if "__main__" == __name__:
-    run()
+
+

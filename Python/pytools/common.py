@@ -1,9 +1,13 @@
-#!/usr/bin/env python
-
 import re
 
 
 def format_identifier(identifier: str, rule=0) -> str:
+    """
+    格式化标识符
+    :param identifier: 标识符名称
+    :param rule: 格式化规则 0.驼峰 1.帕斯卡 2.下划线
+    :return: 新标识符
+    """
     if rule < 0 or rule > 2:
         rule = 0
 
@@ -31,6 +35,12 @@ def format_identifier(identifier: str, rule=0) -> str:
 
 
 def format_function_identifier(func, rule=0) -> str:
+    """
+    格式化函数标识符
+    :param func: 函数
+    :param rule: 格式化规则 0.驼峰 1.帕斯卡 2.下划线
+    :return: 新标识符
+    """
     return format_identifier(func.__name__, rule)
 
 
@@ -41,5 +51,5 @@ def change_dict_value(dictionary: dict, key, delta):
     return dictionary[key]
 
 
-if "__main__" == __name__:
+if __name__ == "__main__":
     pass

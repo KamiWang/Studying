@@ -1,10 +1,13 @@
 import sanic
-from sanic.response import json
 
 from httpserver.sanic_engine import math_route
+from pytools.config import ConfigLoader
+from archive.mysql_engine import MySQLEngine
 
 app = sanic.Sanic(__name__)
 app.blueprint(math_route.bp)
+
+MySQL: MySQLEngine = None
 
 
 def run(host, port):
@@ -35,8 +38,18 @@ async def when_response(request, response):
 
 @app.exception(Exception)
 async def when_exception(request, exception):
-    return process_exception(exception)
+    return sanic.response.json({"code": 1, "error": exception.__class__.__name__, "details": str(exception)})
 
 
-def process_exception(exception):
-    return json({"code": 1, "error": exception.__class__.__name__, "details": str(exception)})
+@app.listener('before_server_start')
+async def setup_db(app, loop):
+    config = ConfigLoader().mysql
+    global MySQL
+    MySQL = MySQLEngine(config["ip"], config["port"], config["user"], config["password"], config["schema"])
+    await MySQL.initialize()
+
+
+@app.listener('after_server_stop')
+async def close_db(app, loop):
+    global MySQL
+    await MySQL.destroy()
