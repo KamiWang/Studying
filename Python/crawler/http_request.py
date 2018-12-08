@@ -40,6 +40,10 @@ class HTTPRequestClient:
         async with self.session.get(url, headers=self.headers) as response:
             return await response.text(self.get_coding(response))
 
+    async def post(self, url, data):
+        async with self.session.post(url, data=data, headers=self.headers) as response:
+            return await response.text(self.get_coding(response))
+
 
 if __name__ == "__main__":
     async def go():
